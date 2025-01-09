@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3"
+    "@biomejs/biome": "^1.9.4"
   }
 }
