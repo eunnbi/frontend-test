@@ -56,8 +56,7 @@ export const SaasListItem = ({
   );
 };
 
-const SAAS_DEFAULT_IMAGE_URL =
-  'https://dev.smply.app/img/icon-logos/placeholder.png';
+const SAAS_DEFAULT_IMAGE_URL = 'https://robohash.org/mail@ashallendesign.co.uk';
 
 const formatDate = (date: Date) => {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
