@@ -1,0 +1,43 @@
+{
+	"name": "turing-frontend-test",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"prepare": "panda codegen",
+		"dev": "next dev --turbo",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"format": "biome format --write src/**/*",
+		"cosmos": "cosmos --expose-imports",
+		"cosmos-export": "cosmos-export --expose-imports",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"next": "14.2.5",
+		"react": "^18",
+		"react-dom": "^18"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@pandacss/dev": "^0.45.0",
+		"@testing-library/dom": "^10.4.0",
+		"@testing-library/jest-dom": "^6.4.8",
+		"@testing-library/react": "^16.0.0",
+		"@testing-library/user-event": "^14.5.2",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@vitejs/plugin-react": "^4.3.1",
+		"@vitest/browser": "^2.0.5",
+		"eslint": "^8",
+		"eslint-config-next": "14.2.5",
+		"playwright": "^1.46.0",
+		"react-cosmos": "^6.1.1",
+		"react-cosmos-next": "^6.1.1",
+		"typescript": "^5",
+		"vite-tsconfig-paths": "^5.0.1",
+		"vitest": "^2.0.5"
+	}
+}
