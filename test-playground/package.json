@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "lint": "eslint .",
+    "format": "biome format --write src/**/*",
     "test": "vitest --browser.headless",
     "test:ui": "vitest",
     "test:coverage": "vitest run --coverage",
