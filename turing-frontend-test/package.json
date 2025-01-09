@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "prepare": "panda codegen",
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "biome format --write src/**/*",
-    "cosmos": "cosmos --expose-imports",
+    "story": "cosmos --expose-imports",
     "cosmos-export": "cosmos-export --expose-imports",
-    "test": "vitest"
+    "test": "vitest",
+    "test:headed": "vitest --browser.headless false",
+    "test:node": "vitest --browser.enabled false",
+    "test:cov": "vitest run --coverage.enabled true"
   },
   "dependencies": {
     "next": "14.2.5",
