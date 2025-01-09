@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint .",
     "format": "biome format --write src/**/*",
-    "test": "vitest --browser.headless",
-    "test:ui": "vitest",
+    "test": "vitest",
+    "test:ui": "vitest --browser.headless false",
     "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006"
   },
@@ -49,7 +49,6 @@
     "typescript": "^5.2.2",
     "vite": "6.0.7",
     "vitest": "3.0.0-beta.4",
-    "vitest-browser-react": "^0.0.4",
-    "vitest-canvas-mock": "^0.3.3"
+    "vitest-browser-react": "^0.0.4"
   }
 }

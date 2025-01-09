@@ -20,10 +20,10 @@ export default defineConfig({
     },
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
     globals: true,
-    setupFiles: ['./test/setup.ts'],
+    setupFiles: ['./setupTest.ts'],
     browser: {
       enabled: true,
-      ui: true,
+      headless: true,
       provider: 'playwright',
       instances: [{ browser: 'chromium' }],
     },
