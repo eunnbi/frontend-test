@@ -1,6 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { css } from '@styled-system/css';
+import { render, screen } from '@testing-library/react';
+import { page } from '@vitest/browser/context';
 import { createRef } from 'react';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { ImageCropper } from './ImageCropper';
 
@@ -10,10 +12,20 @@ const getMockImageSrc = (width: number, height: number) => {
 
 const mockAlt = 'test';
 
+beforeAll(() => {
+  page.viewport(828, 896);
+});
+
 describe('When "ImageCropper" is rendered', () => {
   it('With "src" prop, it should render the img element with the "src" attribute.', async () => {
     const src = getMockImageSrc(200, 300);
-    render(<ImageCropper src={src} alt={mockAlt} />);
+    render(
+      <ImageCropper
+        src={src}
+        alt={mockAlt}
+        className={css({ height: '100vw' })}
+      />
+    );
 
     await expect
       .element(screen.getByAltText(mockAlt))
@@ -21,36 +33,63 @@ describe('When "ImageCropper" is rendered', () => {
   });
 
   it('With "alt" prop, it should render the img element with the "alt" attribute.', async () => {
-    render(<ImageCropper src={getMockImageSrc(200, 300)} alt={mockAlt} />);
+    render(
+      <ImageCropper
+        src={getMockImageSrc(200, 300)}
+        alt={mockAlt}
+        className={css({ height: '100vw' })}
+      />
+    );
 
     await expect
       .element(screen.getByAltText(mockAlt))
       .toHaveAttribute('alt', mockAlt);
   });
 
-  it('After the image load, the aspect ratio of img element should be the same with the original aspect ratio.', async () => {
+  it('With portrait image, the width of img element should be same with the cropper size while keeping the aspect ratio.', async () => {
     const width = 300;
     const height = 500;
+    const cropperSize = 120;
 
     render(
       <ImageCropper
         src={getMockImageSrc(width, height)}
         alt={mockAlt}
-        cropperSize={120}
+        cropperSize={cropperSize}
+        className={css({ height: '100vw' })}
       />
     );
 
-    const element = screen.getByAltText(mockAlt);
-    element.setAttribute('width', width.toString());
-    element.setAttribute('height', height.toString());
+    await expect
+      .poll(() => screen.getByAltText(mockAlt), { timeout: 3000 })
+      .toHaveAttribute('width', `${cropperSize}`);
 
-    fireEvent.load(element);
+    await expect
+      .poll(() => screen.getByAltText(mockAlt), { timeout: 3000 })
+      .toHaveAttribute('height', `${cropperSize / (width / height)}`);
+  });
 
-    const aspectRatio =
-      Number(element.getAttribute('width')) /
-      Number(element.getAttribute('height'));
+  it('With landscape image, the height of img element should be same with the cropper size while keeping the aspect ratio.', async () => {
+    const width = 500;
+    const height = 300;
+    const cropperSize = 120;
 
-    expect(aspectRatio).toBe(width / height);
+    render(
+      <ImageCropper
+        src={getMockImageSrc(width, height)}
+        alt={mockAlt}
+        cropperSize={cropperSize}
+        className={css({ height: '100vw' })}
+      />
+    );
+
+    await expect
+      .poll(() => screen.getByAltText(mockAlt), { timeout: 3000 })
+      .toHaveAttribute('width', `${cropperSize * (width / height)}`);
+
+    await expect
+      .poll(() => screen.getByAltText(mockAlt), { timeout: 3000 })
+      .toHaveAttribute('height', `${cropperSize}`);
   });
 
   it('With the "resultSize" prop, it should render the canvas element with "resultSize" width.', () => {
@@ -99,4 +138,6 @@ describe('When "ImageCropper" is rendered', () => {
 
     expect(ref.current).toBeDefined();
   });
+
+  // TODO: add interaction test
 });
