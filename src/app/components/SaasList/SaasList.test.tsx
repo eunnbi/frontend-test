@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect,it } from 'vitest';
 
 import { EmptyList, NonEmptyList } from './SaasList.stories';
-import { render, screen } from '@testing-library/react';
 
 describe('SaasList test', () => {
   it('SaaS가 없으면, 연동하세요 링크를 보여준다.', () => {

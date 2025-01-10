@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react';
-import { SaasList } from './SaasList';
+
 import { mockList } from './mockData';
+import { SaasList } from './SaasList';
 
 const meta = {
   title: 'SaasList',

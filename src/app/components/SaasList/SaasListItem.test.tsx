@@ -1,15 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect,it } from 'vitest';
+
+import {
+  결제내역_없는_SaaS,
+  로고_결제내역_있는_SaaS,
+  이름만_있는_SaaS,
+} from './mockData';
 import {
   OnlyNameSaasItem,
   SaasItemWithLogoAndPayment,
   SaasItemWithoutPayment,
 } from './SaasListItem.stories';
-import {
-  이름만_있는_SaaS,
-  로고_결제내역_있는_SaaS,
-  결제내역_없는_SaaS,
-} from './mockData';
 
 describe('SaasListItem test', () => {
   it('이름만 있는 Saas', () => {

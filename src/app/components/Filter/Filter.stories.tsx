@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
-import * as Filter from './Filter';
 import { Meta } from '@storybook/react';
+import { useState } from 'react';
+
+import * as Filter from './Filter';
 
 const meta = {
   title: 'Filter',

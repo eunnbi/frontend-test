@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { FilterStory } from './Filter.stories';
 import { render, screen } from '@testing-library/react';
+import { describe, expect,it } from 'vitest';
+
+import { FilterStory } from './Filter.stories';
 
 describe('Filter test', () => {
   it('결제 내역 있는 SaaS를 필터할 수 있다.', () => {
