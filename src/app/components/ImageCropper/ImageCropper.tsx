@@ -1,9 +1,9 @@
+import { css, cx } from '@styled-system/css';
 import { forwardRef, useEffect, useRef } from 'react';
 
 import { useCropImage } from './useCropImage';
 
-import type { ForwardedRef, MutableRefObject } from 'react';
-import { css } from '@styled-system/css';
+import type { ForwardedRef, RefObject } from 'react';
 
 const DEFAULT_SIZE = 512;
 
@@ -12,11 +12,18 @@ export interface ImageCropperProps {
   resultSize?: number;
   src: string;
   alt: string;
+  className?: string;
 }
 
 export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
   (
-    { cropperSize = DEFAULT_SIZE, resultSize = DEFAULT_SIZE, src, alt },
+    {
+      cropperSize = DEFAULT_SIZE,
+      resultSize = DEFAULT_SIZE,
+      src,
+      alt,
+      className,
+    },
     forwardedRef
   ) => {
     const {
@@ -60,16 +67,19 @@ export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
       <div
         role='presentation'
         ref={boxRef}
-        className={css({
-          position: 'relative',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: '100%',
-          cursor: 'move',
-          overflow: 'clip',
-        })}
+        className={cx(
+          css({
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            cursor: 'move',
+            overflow: 'clip',
+          }),
+          className
+        )}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
@@ -138,7 +148,7 @@ export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
 ImageCropper.displayName = 'ImageCropper';
 
 const mergeRefs = <T extends Element>(
-  refs: (MutableRefObject<T | null> | ForwardedRef<T>)[]
+  refs: (RefObject<T | null> | ForwardedRef<T>)[]
 ) => {
   return (elem: T) => {
     refs.forEach((ref) => {

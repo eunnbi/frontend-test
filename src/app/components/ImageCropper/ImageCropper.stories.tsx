@@ -1,7 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { css } from '@styled-system/css';
+import { useRef, useState } from 'react';
 
 import { ImageCropper, type ImageCropperProps } from './ImageCropper';
-import { useRef, useState } from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'ImageCropper',
@@ -47,9 +49,7 @@ const ImageCropperWrapper = (props: ImageCropperProps) => {
 
   return (
     <>
-      <div style={{ height: 512 }}>
-        <ImageCropper ref={ref} {...props} />
-      </div>
+      <ImageCropper ref={ref} className={css({ height: 512 })} {...props} />
       <button onClick={save}>Show Result</button>
       {url && <img src={url} />}
     </>
