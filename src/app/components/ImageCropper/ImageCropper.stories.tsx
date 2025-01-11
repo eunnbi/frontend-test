@@ -49,7 +49,7 @@ const ImageCropperWrapper = (props: ImageCropperProps) => {
 
   return (
     <>
-      <ImageCropper ref={ref} className={css({ height: 512 })} {...props} />
+      <ImageCropper ref={ref} styles={css.raw({ height: 512 })} {...props} />
       <button onClick={save}>Show Result</button>
       {url && <img src={url} />}
     </>

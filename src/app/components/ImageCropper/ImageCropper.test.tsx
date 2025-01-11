@@ -23,7 +23,7 @@ describe('When "ImageCropper" is rendered', () => {
       <ImageCropper
         src={src}
         alt={mockAlt}
-        className={css({ height: '100vw' })}
+        styles={css.raw({ height: '100vw' })}
       />
     );
 
@@ -37,7 +37,7 @@ describe('When "ImageCropper" is rendered', () => {
       <ImageCropper
         src={getMockImageSrc(200, 300)}
         alt={mockAlt}
-        className={css({ height: '100vw' })}
+        styles={css.raw({ height: '100vw' })}
       />
     );
 
@@ -56,7 +56,7 @@ describe('When "ImageCropper" is rendered', () => {
         src={getMockImageSrc(width, height)}
         alt={mockAlt}
         cropperSize={cropperSize}
-        className={css({ height: '100vw' })}
+        styles={css.raw({ height: '100vw' })}
       />
     );
 
@@ -79,7 +79,7 @@ describe('When "ImageCropper" is rendered', () => {
         src={getMockImageSrc(width, height)}
         alt={mockAlt}
         cropperSize={cropperSize}
-        className={css({ height: '100vw' })}
+        styles={css.raw({ height: '100vw' })}
       />
     );
 

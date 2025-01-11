@@ -1,4 +1,4 @@
-import { css, cx } from '@styled-system/css';
+import { css, type Styles } from '@styled-system/css';
 import { forwardRef, useEffect, useRef } from 'react';
 
 import { useCropImage } from './useCropImage';
@@ -12,18 +12,12 @@ export interface ImageCropperProps {
   resultSize?: number;
   src: string;
   alt: string;
-  className?: string;
+  styles?: Styles;
 }
 
 export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
   (
-    {
-      cropperSize = DEFAULT_SIZE,
-      resultSize = DEFAULT_SIZE,
-      src,
-      alt,
-      className,
-    },
+    { cropperSize = DEFAULT_SIZE, resultSize = DEFAULT_SIZE, src, alt, styles },
     forwardedRef
   ) => {
     const {
@@ -67,8 +61,8 @@ export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
       <div
         role='presentation'
         ref={boxRef}
-        className={cx(
-          css({
+        className={css(
+          css.raw({
             position: 'relative',
             display: 'flex',
             justifyContent: 'center',
@@ -78,7 +72,7 @@ export const ImageCropper = forwardRef<HTMLCanvasElement, ImageCropperProps>(
             cursor: 'move',
             overflow: 'clip',
           }),
-          className
+          styles
         )}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
