@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 
+import { getA11ySnapshot } from '@/test/getA11ySnapshot';
+
 import { MultipleOptions } from './SelectWithCombobox.stories';
 
 describe('SelectWithCombobox', () => {
@@ -22,36 +24,43 @@ describe('SelectWithCombobox', () => {
     elements.forEach((element, index) => {
       expect(element).toHaveTextContent(expectedTextContents[index]);
     });
+
+    expect(getA11ySnapshot(document.body)).toMatchInlineSnapshot(`
+			"combobox: 사용자
+			dialog: 사용자
+			  combobox: 이름을 입력해주세요.
+			  listbox
+			    option: 탐정토끼
+			    option: 김태희
+			    option: stelo"
+		`);
   });
 
   it('옵션을 검색할 수 있다.', async () => {
     const screen = render(<MultipleOptions />);
-
     await screen.getByRole('combobox', { name: '사용자' }).click();
+
     await screen
       .getByRole('combobox', { name: '이름을 입력해주세요.' })
-      .fill('김');
+      .fill('김ㅌ');
 
-    let expectedTextContents = ['김태희'];
-    let elements = screen.getByRole('option').elements();
-    expect(elements).toHaveLength(1);
-    elements.forEach((element, index) => {
-      expect(element).toHaveTextContent(expectedTextContents[index]);
-    });
+    await expect
+      .element(screen.getByRole('option'))
+      .toHaveTextContent('김태희');
 
     await screen
       .getByRole('combobox', { name: '이름을 입력해주세요.' })
       .fill('ㅌ');
 
-    expectedTextContents = ['탐정토끼', '김태희'];
-    elements = screen.getByRole('option').elements();
+    const expectedTextContents = ['탐정토끼', '김태희'];
+    const elements = screen.getByRole('option').elements();
     expect(elements).toHaveLength(2);
     elements.forEach((element, index) => {
       expect(element).toHaveTextContent(expectedTextContents[index]);
     });
   });
 
-  it('검색 결과가 없는 경우 메시지를 보여준다.', async () => {
+  it('검색 결과가 없는 경우 "No Result" 메시지를 보여준다.', async () => {
     const screen = render(<MultipleOptions />);
 
     await screen.getByRole('combobox', { name: '사용자' }).click();
@@ -60,7 +69,7 @@ describe('SelectWithCombobox', () => {
       .fill('asdf');
 
     await expect
-      .element(screen.getByRole('dialog'))
+      .element(screen.getByRole('dialog', { name: '사용자' }))
       .toHaveTextContent('No Result');
   });
 
@@ -70,6 +79,19 @@ describe('SelectWithCombobox', () => {
     await screen.getByRole('combobox', { name: '사용자' }).click();
     await screen.getByRole('option', { name: '김태희' }).click();
     await screen.getByRole('button', { name: '김태희 해제하기' }).click();
+
+    // Web first assertion (https://playwright.dev/docs/best-practices#use-web-first-assertions)
+    await expect
+      .element(screen.getByRole('dialog', { name: '사용자를 해제할까요?' }))
+      .toBeVisible();
+
+    expect(getA11ySnapshot(document.body)).toMatchInlineSnapshot(`
+			"button: 김태희 해제하기
+			dialog: 사용자를 해제할까요?
+			  heading: 사용자를 해제할까요?
+			  button: 확인"
+		`);
+
     await screen
       .getByRole('dialog', { name: '사용자를 해제할까요?' })
       .getByRole('button', { name: '확인' })
