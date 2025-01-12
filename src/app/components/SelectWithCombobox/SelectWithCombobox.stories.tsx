@@ -17,7 +17,7 @@ const meta = {
 
 export default meta;
 
-export const MultipleOptions = () => {
+export const SelectWithComboboxStory = () => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   return (
@@ -56,20 +56,5 @@ export const MultipleOptions = () => {
         }}
       />
     </OverlayProvider>
-  );
-};
-
-export const EmptyOption = () => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
-  return (
-    <SelectWithCombobox
-      label='사용자'
-      emptyValue={<div>설정하기</div>}
-      emptyList={<span>No Results</span>}
-      placeholder='이름을 입력해주세요.'
-      optionList={[]}
-      selectedValue={selectedValue}
-      onChange={setSelectedValue}
-    />
   );
 };

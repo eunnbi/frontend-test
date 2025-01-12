@@ -3,11 +3,11 @@ import { render } from 'vitest-browser-react';
 
 import { getA11ySnapshot } from '@/test/getA11ySnapshot';
 
-import { MultipleOptions } from './SelectWithCombobox.stories';
+import { SelectWithComboboxStory } from './SelectWithCombobox.stories';
 
-describe('SelectWithCombobox', () => {
+describe('SelectWithCombobox test', () => {
   it('콤보박스를 클릭하면 옵션 목록을 보여준다.', async () => {
-    const screen = render(<MultipleOptions />);
+    const screen = render(<SelectWithComboboxStory />);
 
     // given 콤보박스의 초기 상태에서 "설정하기" 텍스트가 표시된다.
     await expect
@@ -37,7 +37,7 @@ describe('SelectWithCombobox', () => {
   });
 
   it('옵션을 검색할 수 있다.', async () => {
-    const screen = render(<MultipleOptions />);
+    const screen = render(<SelectWithComboboxStory />);
     await screen.getByRole('combobox', { name: '사용자' }).click();
 
     await screen
@@ -61,7 +61,7 @@ describe('SelectWithCombobox', () => {
   });
 
   it('검색 결과가 없는 경우 "No Result" 메시지를 보여준다.', async () => {
-    const screen = render(<MultipleOptions />);
+    const screen = render(<SelectWithComboboxStory />);
 
     await screen.getByRole('combobox', { name: '사용자' }).click();
     await screen
@@ -74,7 +74,7 @@ describe('SelectWithCombobox', () => {
   });
 
   it('옵션을 선택하고 해재할 수 있다.', async () => {
-    const screen = render(<MultipleOptions />);
+    const screen = render(<SelectWithComboboxStory />);
 
     await screen.getByRole('combobox', { name: '사용자' }).click();
     await screen.getByRole('option', { name: '김태희' }).click();
