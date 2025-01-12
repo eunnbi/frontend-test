@@ -58,7 +58,8 @@ export const MemberCreateForm = ({ createMember }: MemberCreateFormProps) => {
         멤버 추가
       </h2>
       <form
-        aria-labelledby={id}
+        onSubmit={onSubmit}
+        aria-labelledby={id} // 폼에 접근 가능한 이름 붙여주기
         className={cx(
           vstack(),
           css({
@@ -69,8 +70,8 @@ export const MemberCreateForm = ({ createMember }: MemberCreateFormProps) => {
             margin: '12px',
           })
         )}
-        onSubmit={onSubmit}
       >
+        {/* label을 이용해 input에 접근 가능한 이름 붙여주기 */}
         <Label name='이름' required>
           <Input type='text' {...register('name')} />
           <ErrorMessage name='name' />
@@ -117,6 +118,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         borderRadius: '8px',
         border: '1px solid #d9dee2',
         padding: '16px',
+        // 웹 표준 기반 스타일링 (aria 속성 활용)
+        '&[aria-invalid=true]': {
+          borderColor: 'red',
+        },
       })}
       aria-invalid={typeof errors[props.name]?.message === 'string'}
     />
@@ -137,6 +142,7 @@ const ErrorMessage = ({ name }: ErrorMessageProps) => {
   if (typeof errorMessage !== 'string') return <p />;
 
   return (
+    /* ARIA 표준 활용 (role과 accessible name을 이용해 테스트) */
     <p role='alert' aria-label={errorMessage} className={css({ color: 'red' })}>
       {errorMessage}
     </p>

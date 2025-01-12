@@ -31,6 +31,7 @@ describe('SaasListItem test', () => {
     expect(screen.queryByText('2024년 6월 27일 결제')).toBeVisible();
   });
 
+  // NOTE: 링크 테스트 시 링크가 실제로 존재하는지에 대한 여부를 확인하는데는 어려움이 있기 때문에, framework에서 지원하는 typed route를 활용하면 좋다.
   it('항목은 해당 SaaS의 상세 페이지로 가는 링크이다.', () => {
     render(<SaasItemWithoutPayment />);
 
