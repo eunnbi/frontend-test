@@ -1,5 +1,3 @@
-import { Meta } from '@storybook/react';
-
 import {
   결제내역_없는_SaaS,
   로고_결제내역_있는_SaaS,
@@ -7,6 +5,8 @@ import {
   이름만_있는_SaaS,
 } from './mockData';
 import { SaasListItem } from './SaasListItem';
+
+import type { Meta } from '@storybook/react';
 
 const meta = {
   title: 'SaasListItem',
