@@ -6,6 +6,8 @@ import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as v from 'valibot';
 
+import { button } from '@/app/styles/button';
+
 interface MemberFormFields {
   name: string;
   email: string;
@@ -80,7 +82,9 @@ export const MemberCreateForm = ({ createMember }: MemberCreateFormProps) => {
           <Input type='text' {...register('email')} />
           <ErrorMessage name='email' />
         </Label>
-        <Button type='submit'>추가하기</Button>
+        <button type='submit' className={button()}>
+          추가하기
+        </button>
       </form>
     </FormProvider>
   );
@@ -146,34 +150,5 @@ const ErrorMessage = ({ name }: ErrorMessageProps) => {
     <p role='alert' aria-label={errorMessage} className={css({ color: 'red' })}>
       {errorMessage}
     </p>
-  );
-};
-
-interface ButtonProps extends ComponentProps<'button'> {}
-const Button = ({ children, ...props }: ButtonProps) => {
-  return (
-    <button
-      {...props}
-      className={css({
-        background: '#4f89fb',
-        color: 'white',
-        width: '100%',
-        borderRadius: '8px',
-        display: 'flex',
-        gap: '8px',
-        justifyContent: 'center',
-        padding: '14px 16px',
-        fontSize: '17px',
-        fontWeight: 600,
-        transitionProperty: 'background, color',
-        transitionDuration: '.125s',
-        transitionTimingFunction: 'ease-in-out',
-        _hover: {
-          background: '#1863f6',
-        },
-      })}
-    >
-      {children}
-    </button>
   );
 };

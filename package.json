@@ -23,6 +23,7 @@
     "@hookform/resolvers": "^3.10.0",
     "korean-regexp": "^1.0.13",
     "next": "15.1.4",
+    "overlay-kit": "^1.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",

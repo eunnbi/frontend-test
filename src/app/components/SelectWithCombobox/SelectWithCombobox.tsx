@@ -7,6 +7,7 @@ import { type ReactNode, startTransition, useState } from 'react';
 interface SelectWithComboboxProps {
   label: ReactNode;
   emptyValue: ReactNode;
+  emptyList: ReactNode;
   optionList: { value: string; searchValue: string; label: ReactNode }[];
   selectedValue: string | null;
   placeholder: string;
@@ -16,6 +17,7 @@ interface SelectWithComboboxProps {
 export const SelectWithCombobox = ({
   label,
   emptyValue,
+  emptyList,
   optionList,
   selectedValue,
   placeholder,
@@ -78,23 +80,27 @@ export const SelectWithCombobox = ({
             className={inputClassName}
           />
           <Ariakit.ComboboxList className={css({ width: '100%' })}>
-            {matches.map((option) => (
-              <Ariakit.SelectItem
-                key={option.value}
-                value={option.value}
-                className={css({
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: '8px',
-                  '&[data-active-item]': {
-                    background: '#f1f4f6',
-                  },
-                })}
-                render={
-                  <Ariakit.ComboboxItem>{option.label}</Ariakit.ComboboxItem>
-                }
-              />
-            ))}
+            {matches.length > 0
+              ? matches.map((option) => (
+                  <Ariakit.SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className={css({
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      '&[data-active-item]': {
+                        background: '#f1f4f6',
+                      },
+                    })}
+                    render={
+                      <Ariakit.ComboboxItem>
+                        {option.label}
+                      </Ariakit.ComboboxItem>
+                    }
+                  />
+                ))
+              : emptyList}
           </Ariakit.ComboboxList>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>

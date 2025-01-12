@@ -51,12 +51,29 @@ describe('SelectWithCombobox', () => {
     });
   });
 
+  it('검색 결과가 없는 경우 메시지를 보여준다.', async () => {
+    const screen = render(<MultipleOptions />);
+
+    await screen.getByRole('combobox', { name: '사용자' }).click();
+    await screen
+      .getByRole('combobox', { name: '이름을 입력해주세요.' })
+      .fill('asdf');
+
+    await expect
+      .element(screen.getByRole('dialog'))
+      .toHaveTextContent('No Result');
+  });
+
   it('옵션을 선택하고 해재할 수 있다.', async () => {
     const screen = render(<MultipleOptions />);
 
     await screen.getByRole('combobox', { name: '사용자' }).click();
     await screen.getByRole('option', { name: '김태희' }).click();
     await screen.getByRole('button', { name: '김태희 해제하기' }).click();
+    await screen
+      .getByRole('dialog', { name: '사용자를 해제할까요?' })
+      .getByRole('button', { name: '확인' })
+      .click();
 
     await expect
       .element(screen.getByRole('combobox', { name: '사용자' }))
