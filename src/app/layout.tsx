@@ -1,5 +1,7 @@
 import './index.css';
 
+import { Toaster } from 'sonner';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,7 +23,10 @@ export default function RootLayout({
           rel='stylesheet'
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }
